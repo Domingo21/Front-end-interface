@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高光谱图像分析</title>
+    
+    <style>
+            div {
+        width: 500px;
+        border: 2px solid red;
+        height: 500px;
+        position: absolute;
+        top: 0;
+        bottom: 0; 
+        left: 0;
+        right: 0;
+        margin: auto;
+
+    }
+    #image-preview {
+	border: 1px solid white;
+	width: 100%;
+	height: 100%;
+	max-width: 400px;
+	max-height: 400px;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center center;
+    display: inline-block;
+    }   
+    #front{
+        font-size: larger;
+        font-weight: 700;
+        color: white;
+    }
+    h1{
+        color:rgb(207, 129, 129);
+    }
+    </style>
+    <style type="text/css">
+	    body{
+		    background: url("./background.jpg") no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -o-background-size: cover;                
+            background-size: cover;
+	        }
+	</style>
+</head>
+<body>
+    <h1 align="center">欢迎使用高光谱图像分析！</h1>
+    <div>
+    <form method="post" enctype="multipart/form-data" id="file_upload">
+        <p><span id="front">图片预览：</span></p>
+        <img id="image-preview">
+        <p>
+        <input type="file" id="file" name="upload_image" accept="image/gif, image/jpeg, image/png, image/jpg">
+        </p>
+        <p id="info"></p>
+    </form>
+    </div>
+    <script type="text/javascript">
+        var fileInput = document.getElementById('file');
+        var info = document.getElementById('info');
+        var preview = document.getElementById('image-preview');
+        // 监听change事件:
+        fileInput.addEventListener('change', function() {
+            // 清除背景图片:
+            preview.style.backgroundImage = '';
+            if (!fileInput.value) {
+                info.innerHTML = '没有选择文件';
+                return;
+            }
+            var file = fileInput.files[0];
+            var size = file.size;
+            // 读取文件:
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                var data = e.target.result;
+                console.log(preview, 'a标签')
+                preview.src = data
+            };
+            // 以DataURL的形式读取文件:
+            reader.readAsDataURL(file);
+
+        });
+
+        function save() {
+            var url = preview.src; // 获取图片地址
+            var a = document.createElement('a'); // 创建一个a节点插入的document
+            var event = new MouseEvent('click') // 模拟鼠标click点击事件
+            a.download = 'beautifulGirl' // 设置a节点的download属性值
+            a.href = url; // 将图片的src赋值给a节点的href
+            a.dispatchEvent(event)
+        }
+</script>
+</body>
+</html>

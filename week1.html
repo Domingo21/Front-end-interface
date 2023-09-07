@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高光谱图像分析</title>    
+    <style>
+html {
+    font-size: 10px;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    font-family: sans-serif;
+    box-sizing: border-box;
+    -webkit-text-size-adjust: 100%;
+}
+body {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    font-family: "Roboto", "Helvetica Neue", Helvetica, Arial , sans-serif, "Microsoft YaHei", "微软雅黑", STXihei, "华文细黑", serif;
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: .1px;
+    font-size: 13px;
+    line-height: 1.846;
+    color: #666666;
+    background-color: #ffffff;
+    margin: 0;
+    margin-top: 0px;
+    margin-right: 0px;
+    margin-bottom: 0px;
+    margin-left: 0px;
+    display: block;
+}
+*:before, *:after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.header {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+}
+.header, .marketing, .footer {
+    padding-right: 0;
+    padding-left: 0;
+}
+.text-muted {
+    color: #bbbbbb;
+}
+h1 {
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: 40px;
+    font-size: 34px;
+}
+.container{
+    padding-left: 600px;
+    padding-right: 600px;
+}
+.container .jumbotron, .container-fluid .jumbotron {
+    padding-left: 60px;
+    padding-right: 60px;
+}
+.jumbotron {
+    text-align: center;
+    border-bottom: 1px solid #e5e5e5;
+    border: 2px dashed #ccc;
+    border-radius: 10px !important;
+    background: white;
+    padding-top: 48px;
+    padding-bottom: 48px;
+    margin-bottom: 30px;
+    color: inherit;
+}
+.jumbotron p {
+    margin-bottom: 15px;
+    font-size: 20px;
+    font-weight: 200;
+}
+p {
+    margin: 0 0 1em;
+    margin-top: 0px;
+    margin-right: 0px;
+    margin-bottom: 1em;
+    margin-left: 0px;
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+.jumbotron .btn {
+    padding: 14px 24px;
+    font-size: 21px;
+}
+.btn {
+    border: none;
+    border-top-width: initial;
+    border-right-width: initial;
+    border-bottom-width: initial;
+    border-left-width: initial;
+    border-top-style: none;
+    border-right-style: none;
+    border-bottom-style: none;
+    border-left-style: none;
+    border-top-color: initial;
+    border-right-color: initial;
+    border-bottom-color: initial;
+    border-left-color: initial;
+    border-image-source: initial;
+    border-image-slice: initial;
+    border-image-width: initial;
+    border-image-outset: initial;
+    border-image-repeat: initial;
+    box-shadow: 1px 1px 4px rgb(0 0 0 / 40%);
+    transition: all 0.4s;
+    transition-duration: 0.4s;
+    transition-timing-function: ease;
+    transition-delay: 0s;
+    transition-property: all;
+}
+.btn-success {
+    position: relative;
+    color: #ffffff;
+    background-color: #4caf50;
+    border-color: transparent;
+}
+.icons {
+    height: 25px;
+    width: 25px;
+    background-size: 500%;
+    display: inline-block;
+    background-image: url(ddd.png);
+}
+.ico-upload {
+    background-position: -64px -32px;
+    background-position-x: -64px;
+    background-position-y: -32px;
+    margin-bottom: -7px;
+}
+a {
+    color: #2196f3;
+    text-decoration: none;
+    background-color: transparent;
+}
+.marketing {
+    margin-top: 20px;
+}
+.header, .marketing, .footer {
+    padding-right: 0;
+    padding-left: 0;
+}
+.row {
+    margin-left: -15px;
+    margin-right: -15px;
+}
+.col-lg-12 {
+    position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+h3 {
+    font-size: 34px;
+    margin-top: 0;
+    margin-bottom: 30px;
+}
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: inherit;
+    font-weight: 400;
+    line-height: 1.1;
+    color: #444444;
+}
+h4, .h4 {
+    font-size: 24px;
+}
+h4, .h4, h5, .h5, h6, .h6 {
+    margin-top: 11.5px;
+    margin-bottom: 11.5px;
+}
+.marketing p + h4 {
+    margin-top: 28px;
+}
+#openimages_text{
+    font-size: 15px;
+    color:#bbbbbb;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container"> 
+        <div class="header clearfix">
+          <h1 class="text-muted">欢迎使用高光谱图像分析！</h1>
+        </div>
+  
+        <div class="jumbotron">
+          <p><button class="btn btn-lg btn-success" onClick="javascript:document.getElementById('fileupload').click();"><i class="icons ico-upload"></i> 选择图片<input style="display:none;" id="fileupload" type="file" name="file" accept="image/*" multiple></button></p>
+          <p id="openimages_text">请选择一张高光谱图像</p>
+        </div>
+        <hr>
+        <div class="row marketing">
+          <div class="col-lg-12">
+            <h3>常见问题</h3>
+            <h4>源码下载</h4>
+            <div class="row" style="text-align: center;">
+              <div><a href="https://www.baidu.com" target="_blank" alt="这是一个连接">地址地址地址</a></div>
+            </div>
+            
+            <h4>高光谱图像是什么？</h4>
+            <p>巴拉巴拉。<a href="javascript:show_demo();">查看示例图片</a></p>
+            
+            <h4>如何进行分析?</h4>
+            <p>巴拉巴拉。</p>
+            
+            <h4>什么样的高光谱图效果好？</h4>
+            <p>巴拉巴拉。</p>
+          </div>
+        </div>
+        <hr>
+    </div>
+</body>
+</html>

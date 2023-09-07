@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高光谱图像分析</title>    
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <style>
+html {
+    font-size: 10px;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    font-family: sans-serif;
+    box-sizing: border-box;
+    -webkit-text-size-adjust: 100%;
+}
+body {
+    width: 800px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    font-family: "Roboto", "Helvetica Neue", Helvetica, Arial , sans-serif, "Microsoft YaHei", "微软雅黑", STXihei, "华文细黑", serif;
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: .1px;
+    font-size: 13px;
+    line-height: 1.846;
+    color: #666666;
+    background-color: #ffffff;
+    margin: 0 auto;
+    display: block;
+}
+*:before, *:after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.header {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+}
+.header, .marketing, .footer {
+    padding-right: 0;
+    padding-left: 0;
+}
+.text-muted {
+    color: #bbbbbb;
+}
+h1 {
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: 40px;
+    font-size: 34px;
+}
+.container{
+    padding-left: 60px;
+    padding-right: 60px;
+}
+.container .jumbotron, .container-fluid .jumbotron {
+    padding-left: 60px;
+    padding-right: 60px;
+}
+.jumbotron {
+    text-align: center;
+    border-bottom: 1px solid #e5e5e5;
+    border: 2px dashed #ccc;
+    border-radius: 10px !important;
+    background: white;
+    padding-top: 48px;
+    padding-bottom: 48px;
+    color: inherit;
+}
+.jumbotron p {
+    margin-bottom: 15px;
+    font-size: 20px;
+    font-weight: 200;
+}
+p {
+    margin: 0 0 1em;
+    margin-top: 0px;
+    margin-right: 0px;
+    margin-bottom: 1em;
+    margin-left: 0px;
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+.jumbotron .btn {
+    padding: 14px 24px;
+    font-size: 21px;
+}
+.btn {
+    border: none;
+    border-top-width: initial;
+    border-right-width: initial;
+    border-bottom-width: initial;
+    border-left-width: initial;
+    border-top-style: none;
+    border-right-style: none;
+    border-bottom-style: none;
+    border-left-style: none;
+    border-top-color: initial;
+    border-right-color: initial;
+    border-bottom-color: initial;
+    border-left-color: initial;
+    border-image-source: initial;
+    border-image-slice: initial;
+    border-image-width: initial;
+    border-image-outset: initial;
+    border-image-repeat: initial;
+    box-shadow: 1px 1px 4px rgb(0 0 0 / 40%);
+    transition: all 0.4s;
+    transition-duration: 0.4s;
+    transition-timing-function: ease;
+    transition-delay: 0s;
+    transition-property: all;
+}
+.btn-success {
+    border-radius: 5px;
+    position: relative;
+    color: #ffffff;
+    background-color: #4caf50;
+    border-color: transparent;
+    cursor: pointer;
+}
+.btn-success:hover{
+    background-color: #5ba160;
+}
+.icons {
+    height: 25px;
+    width: 25px;
+    background-size: 500%;
+    display: inline-block;
+    background-image: url(/static/img/ddd.png);
+}
+.ico-upload {
+    background-position: -64px -32px;
+    background-position-x: -64px;
+    background-position-y: -32px;
+    margin-bottom: -7px;
+}
+a {
+    color: #2196f3;
+    text-decoration: none;
+    background-color: transparent;
+}
+a:hover{
+    text-decoration:underline;
+}
+.marketing {
+    margin-top: 20px;
+}
+.header, .marketing, .footer {
+    padding-right: 0;
+    padding-left: 0;
+}
+.row {
+    margin-left: -15px;
+    margin-right: -15px;
+}
+.introduction {
+    position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+h3 {
+    font-size: 34px;
+    margin-top: 0;
+    margin-bottom: 30px;
+}
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: inherit;
+    font-weight: 400;
+    line-height: 1.1;
+    color: #444444;
+}
+h4, .h4 {
+    font-size: 24px;
+}
+h4, .h4, h5, .h5, h6, .h6 {
+    margin-top: 11.5px;
+    margin-bottom: 11.5px;
+}
+.marketing p + h4 {
+    margin-top: 28px;
+}
+#openimages_text{
+    font-size: 15px;
+    color:#bbbbbb;
+}
+
+#hide{
+    margin-top: 20px;
+    display: none;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+hr{
+    margin-top: 20px;
+}
+#shuchu{
+    height: 32px;
+    line-height: 32px;
+    background-color: #e5e5e5;
+}
+#shuchu_p{
+    padding-left: 8px;
+    font-size: 14px;
+}
+#kaishi{
+    margin-top: -10px;
+}
+#btn_file{
+    border: #ffffff;
+    text-align: center;
+    border-radius: 5px;
+    width: 50px;
+    height: 24px;
+    background-color: #2196f3;
+    color: #ffffff;
+    line-height: 24px;
+}
+.img{
+    width: 80px;
+    height: 80px;
+}
+#chulizhong_d{
+    font-size: 30px;
+    color:#000000;
+}
+
+.upload{ 
+    margin: auto;
+    text-align: center;
+    width:151px; 
+    height:41px; 
+    position: relative;
+    cursor: pointer;
+}
+.upload div{ 
+    cursor: pointer;
+    width:100%; 
+    height: 100%; 
+    background: 
+    url('/static/img/ccc.png'); 
+    border-radius: 5px;
+}
+
+.upload input{ 
+    cursor: pointer;
+    width:100%; 
+    height: 100%; 
+    position: absolute; 
+    left:0; top:0; 
+    opacity: 0;
+} 
+
+    </style>
+
+</head>
+<body>
+    <div class="container"> 
+        <div class="header clearfix">
+          <h1 class="text-muted">欢迎使用高光谱图像分析！</h1>
+        </div>
+  
+        <div class="jumbotron" id="xianshi" >
+            <div class="upload">
+                <input type="file" id="id_file">
+                <div></div>
+             </div> 
+          <p id="openimages_text">请选择一个以.mat后缀结尾的数据集</p>
+        </div>
+        <div id="hide">
+            <div id="shuchu"><p id="shuchu_p"></p></div>
+            <div id="kaishi"><p><button id="btn_file">开始</button></p></div>
+        </div>
+        <hr>
+        <div class="row marketing">
+          <div class="introduction">
+            <h3>常见问题</h3>
+            <h4>源码下载</h4>
+            <div class="row" style="text-align: center;">
+              <div><a class="dizhi" href="https://www.baidu.com" target="_blank" alt="这是一个连接">地址地址地址</a></div>
+            </div>
+            
+            <h4>高光谱图像是什么？</h4>
+            <p>巴拉巴拉。<a class="shili" href="javascript:show_demo();">查看示例图片</a></p>
+            
+            <h4>如何进行分析?</h4>
+            <p>巴拉巴拉。</p>
+            
+            <h4>什么样的高光谱图效果好？</h4>
+            <p>巴拉巴拉。</p>
+          </div>
+        </div>
+        <hr>
+    </div>
+
+    <script type="text/javascript">
+        //var fileInput = document.getElementById('file');
+        var openimages_text = document.getElementById('openimages_text');
+        var xianshi = document.getElementById('xianshi');
+        function next(){
+            var f = document.getElementById('id_file').files;
+            var [fileName, fileSize, fileType] = [f[0].name, f[0].size, f[0].type];
+            var filesize = (fileSize/1024)/1024;
+            filesize = filesize.toFixed(4)
+            //xianshi.innerHTML = '<p>文件详细信息</p><p><button id="btn_file">提交</button></p>';
+            document.getElementById("hide").style.display = "block";
+            document.getElementById("shuchu_p").innerHTML = ""+filesize+"&nbsp;MB&nbsp;&nbsp;|&nbsp;&nbsp;"+fileName+"";
+        }
+
+        $("#id_file").bind('change', function () {//监视input值的变化
+            //alert(file);
+            next();
+        });
+
+        $("#btn_file").click(function () {
+            xianshi.innerHTML = '';//清屏
+            xianshi.innerHTML = '<div><img class="img" src="/static/img/bbb.gif"></div><div id= "chulizhong_d">处理中...</div>';
+                    // 接口操作
+            var formdata = new FormData() //实例化得到一个fromdata对象
+            //把文件放到对象内
+            //formdata.append('myfile',文件对象)
+            formdata.append('myfile', $("#id_file")[0].files[0])
+            //问题:fomdata现在只放了一个文件对象，可不可以放数据？可以
+            //formdata.append('name','lqz')
+            formdata.append('name', $("#id_name").val())
+            $.ajax({
+                url: '/homeApp/',
+                method: 'post',
+                //上传文件必须写这两句话
+                processData: false,
+                contentType: false,
+                data: formdata,
+                success: function (data) {
+                    alert(data)
+                    document.getElementById("hide").style.display = "none";
+                    reP()
+                    //console.log(data)
+                    //location.href='http://www.baidu.com'
+
+                }
+            })
+                    //wan
+            //xianshi.innerHTML = '<p>显示一个图片</p>';
+        })
+        function reP() {
+            document.getElementById('oImg').src = "{% static 'img/random_net_1_gt.jpg' %}";
+        }  
+    </script>
+</body>
+</html>
